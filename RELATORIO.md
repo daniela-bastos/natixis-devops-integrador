@@ -1,7 +1,7 @@
 # Relatorio de evidencias - Trabalho Pratico Integrador 01-06
 
 Nome: Daniela Bastos   Data: 24/11/2026
-URL do repositorio Git: ____________________________
+URL do repositorio Git: https://github.com/daniela-bastos/natixis-devops-integrador
 
 ## E01 - Ambiente (1 valor)
 
@@ -172,7 +172,61 @@ Foi reposta a configuração base, deixando de aplicar o ficheiro `incidente.yam
 O incidente foi diagnosticado através da análise dos logs, da configuração efetiva e dos testes HTTP. A reposição da configuração base permitiu recuperar o serviço, mantendo a integridade dos dados armazenados no volume nomeado.
 
 ## E05 - Git (3 valores)
-Branch, hashes de commits, merge e tag v1.0.0:
+
+**Repositório remoto:**
+
+https://github.com/daniela-bastos/natixis-devops-integrador
+
+**Comandos executados:**
+
+- `git init -b main`
+- `git check-ignore -v .venv/teste .env __pycache__/app.pyc .pytest_cache/teste evidencias/teste.png`
+- `git add .`
+- `git commit -m "feat: ambiente integrador funcional"`
+- `git switch -c fix/health-info`
+- `git add app.py tests/test_app.py`
+- `git commit -m "fix: acrescentar identificacao no health"`
+- `git switch main`
+- `git merge --no-ff fix/health-info -m "merge: integrar fix/health-info"`
+- `git tag -a v1.0.0 -m "Release integrador 1.0.0"`
+- `git log --oneline --graph --decorate --all -6`
+- `git branch --merged main`
+- `git remote -v`
+- `git push -u origin main`
+- `git push origin fix/health-info`
+- `git push origin v1.0.0`
+- `git ls-remote --heads origin`
+- `git ls-remote --tags origin`
+- `git status`
+
+**Alterações realizadas:**
+
+- Criação da branch `fix/health-info`.
+- Inclusão do campo `"team": "support"` na resposta do endpoint `/health`.
+- Inclusão da asserção `assert response.json()["team"] == "support"` no teste `test_health`.
+- Execução dos testes automatizados num container temporário com Python 3.13, através de `python -m pytest -q`.
+
+**Resultados observados:**
+
+- Testes: `2 passed, 1 warning in 1.92s`.
+- Commit inicial: `d46fb03` — feat: ambiente integrador funcional.
+- Commit de correção: `f749cb6` — fix: acrescentar identificacao no health.
+- Commit de merge: `e2a81b9` — merge: integrar fix/health-info.
+- Branch principal: `main`.
+- Branch de correção: `fix/health-info`, integrada na main.
+- Tag anotada: `v1.0.0`, com a mensagem "Release integrador 1.0.0".
+- Publicação das duas branches e da tag confirmada no repositório remoto.
+- Estado final: `Your branch is up to date with 'origin/main'.`
+- Working tree: `nothing to commit, working tree clean`.
+
+**Evidências complementares:**
+
+- `evidencias/E05_01_Git_Historico_Merge_Tag.png`
+- `evidencias/E05_02_Git_Publicacao_Remota.png`
+
+**Conclusão técnica:**
+
+A aplicação foi versionada com Git, tendo a alteração ao endpoint /health sido desenvolvida e testada numa branch independente antes da sua integração na branch principal. A criação da tag anotada v1.0.0 e a publicação do histórico no GitHub garantem a rastreabilidade das alterações e da release.
 
 ## E06 - Jenkins SUCCESS (4 valores)
 URL/numero do build, etapas e identificador da imagem construida:
